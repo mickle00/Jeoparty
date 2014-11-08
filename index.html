@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jeoparty!</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+      var allQuestions;
+      var currentQuestion = 0;
+      function getData(){
+        $.getJSON("https://dataclips.heroku.com/muepelbosxrnrzvdylabyausfdph.json", function(data) {
+          console.table(data);
+          allQuestions = data;
+          setQuestion();
+        });
+      };
+
+      function setQuestion(){
+        toggleAnswer(false);
+        $('#question').html(allQuestions.values[currentQuestion][5]);
+        $('#answer').html(allQuestions.values[currentQuestion][6]);
+        $('#category').html(allQuestions.values[currentQuestion][3]);
+        $('#value').html(allQuestions.values[currentQuestion][4]);
+        currentQuestion++;
+      }
+
+      function toggleAnswer(shouldShow){
+        if (shouldShow){
+          $('#answer').css("visibility", "visible");
+          $('#show-answer-button').hide();
+        } else {
+          $('#answer').css("visibility", "hidden");
+          $('#show-answer-button').show();
+        }
+      };
+
+      getData();
+    </script>
+  </head>
+  <body>
+  <div class="jumbotron">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title" id="title">
+        <span id="category"></span>
+        <span id="value"></span>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <h2><div id="question"></div></h2>
+      <h3><i><div id="answer" style="visbility: hidden"></div></i></h3>
+    </div>
+  </div>
+    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="toggleAnswer(true)" id="show-answer-button">Show Answer</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="setQuestion()">Next Question</a>
+  </div>
+  </body>
+</html>
