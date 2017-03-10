@@ -34,7 +34,7 @@
       function setQuestion(){
         toggleAnswer(false);
         $('#question').html(allQuestions.values[currentQuestion][5]);
-        $('#answer').html(allQuestions.values[currentQuestion][6]);
+        $('#answer').html('Who/what/why is/are ' + allQuestions.values[currentQuestion][6] + '?');
         $('#category').html(allQuestions.values[currentQuestion][3]);
         $('#value').html(allQuestions.values[currentQuestion][4]);
         currentQuestion++;
@@ -48,6 +48,10 @@
           $('#answer').css("visibility", "hidden");
           $('#show-answer-button').show();
         }
+      };
+      
+      function whoSucks(){
+        alert('Duncan sux');
       };
 
       getData();
@@ -67,8 +71,9 @@
       <h3><i><div id="answer" style="visbility: hidden"></div></i></h3>
     </div>
   </div>
-    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="toggleAnswer(true)" id="show-answer-button">Show Answer</a>
-    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="setQuestion()">Next Question</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="toggleAnswer(true)" id="show-answer-button">Show Question</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="setQuestion()">Next Answer</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button" onclick="whoSucks()">Who Sucks?</a>
   </div>
   </body>
   <script>
